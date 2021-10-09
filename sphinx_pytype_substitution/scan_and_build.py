@@ -37,7 +37,7 @@ class SubstitutionCollection(object):
 
     @property
     def roles(self):
-        return tuple(ROLES[k] for k in self.names)
+        return tuple(self.role(n) for n in self.names)
 
     def __init__(self, **kwargs):
         self.mod = kwargs.get('mod', dict())
@@ -56,7 +56,8 @@ class SubstitutionCollection(object):
         return setattr(self, item, value)
 
     def keys(self):
-        return ROLES.keys()
+        return (a for a, v in self.__dict__.items()
+                if not a.startswith('_') and not callable(v))
 
     def values(self):
         return (getattr(self, name) for name in self.keys())
@@ -71,21 +72,20 @@ class SubstitutionCollection(object):
         for name, value in self.items():
             self[name].update(other.get(name, dict()))
 
-    def exclude(self, pattern):
+    def filter(self, function_or_none=None):
         for name in self.keys():
-            self[name] = dict(
-                filter(
-                    lambda k, v: match(pattern, v) is None,
-                    self[name].items()))
+            # self[name] = dict(filter(function_or_none, self[name].items()))
+            self[name] = dict((k, v) for k, v in self[name].items()
+                              if function_or_none(k, v))
         return self
 
+    def exclude(self, pattern):
+        return self.filter(lambda v: match(pattern, v) is None) \
+            if pattern else self
+
     def match(self, pattern):
-        for name in self.keys():
-            self[name] = dict(
-                filter(
-                    lambda k, v: match(pattern, v),
-                    self[name].items()))
-        return self
+        return self.filter(lambda k, v: match(pattern, v) is not None) \
+            if pattern else self
 
     def shorten_keys(self):
         short = dict()
@@ -197,9 +197,14 @@ class SubstitutionCollection(object):
                 ref = key if value is None else value
                 line = ".. |%s|" % '.'.join(key)
                 line = line.ljust(50)
-                line += "replace:: :%s:`<%s>`" % (ROLES[name], ref)
+                line += "replace:: :%s:`<%s>`" % (self.role(name), ref)
                 lines.append(line)
         return lines
+
+    @staticmethod
+    def role(name):
+        role_name = 'class' if name == 'cls' else name
+        return ':py:%s:' % str(role_name)
 
     def __str__(self):
         return """   %s""" % (linesep + "   ").join(self.substitutions())
@@ -218,10 +223,8 @@ def rst_epilog(*objs, match_pattern='', exclude_pattern='', short=False):
         else:
             raise TypeError(
                 "object of type %s can't be handled." % type(obj))
-    if match_pattern:
-        coll.match(match_pattern)
-    if exclude_pattern:
-        coll.exclude(exclude_pattern)
+    coll.match(match_pattern)
+    coll.exclude(exclude_pattern)
     if short:
         coll = coll.shorten_keys()
     return str(coll)
@@ -230,6 +233,7 @@ def rst_epilog(*objs, match_pattern='', exclude_pattern='', short=False):
 if __name__ == '__main__':
     import datetime, os, sys, businessdate, dcf
 
-    s = SubstitutionCollection().extract_module(dcf).shorten_keys()
-    print(len(s))
-    print(rst_epilog(businessdate, short=True))
+    print(tuple(SubstitutionCollection().names))
+    # s = SubstitutionCollection().extract_module(dcf).shorten_keys()
+    # print(len(s))
+    print(rst_epilog(businessdate, match_pattern='', short=True))
