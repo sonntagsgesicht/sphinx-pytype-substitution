@@ -24,52 +24,10 @@ __scripts__ = ()
 # this is just an example to demonstrate the auxilium workflow
 # it can be removed safely
 
+import sphinx
 
-class Line(object):
-    r""" This a example class (by auxilium)
 
-    The |Line| objects implements a straight line,
-    i.e. a function $y = f(x)$ with
-
-    $$  f(x) = a + b \cdot x  $$
-
-    where $a$ and $b$ are numbers.
-
-    >>> from sphinx-pytype-substitution import Line
-    >>> a, b = 1, 2
-    >>> line = Line(a, b)
-    >>> line.y(x=3)
-    7
-    >>> line(3)  # Line objects are callable
-    7
-    >>> line.a
-    1
-    >>> line.b
-    2
-
-    """
-    def __init__(self, a=0, b=1):
-        self._a = a
-        self._b = b
-
-    @property
-    def a(self):
-        """ a value """
-        return self._a
-
-    @property
-    def b(self):
-        """ b value """
-        return self._b
-
-    def y(self, x=1):
-        """ gives y value depending on x value argument
-
-        :param x: x value
-        :return: $a + b * x$
-
-        """
-        return self._a + self._b * x
-
-    def __call__(self, x=1):
-        return self.y(x)
+def setup(app=sphinx()):
+    app.add_config_value('pytype_substitutions', None, False)
+    app.add_config_value('buildins_substitutions', False, False, (bool,))
+    return {'version': __version__, 'parallel_read_safe': True}
