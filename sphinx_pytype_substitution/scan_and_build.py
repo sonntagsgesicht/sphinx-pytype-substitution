@@ -22,6 +22,7 @@ ROLES = {'mod': ':py:mod:',
          'exc': ':py:exc:',
          'const': ':py:const:'}
 
+TOKEN = '|'
 
 # add substitutions as
 # subs.type[mod.cls.attr()] = <mod.cls.attr>
@@ -39,7 +40,9 @@ class SubstitutionCollection(object):
     def roles(self):
         return tuple(self.role(n) for n in self.names)
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args,
+                 match_pattern='', exclude_pattern='', short=False, **kwargs):
+
         self.mod = kwargs.get('mod', dict())
         self.cls = kwargs.get('cls', dict())
         self.obj = kwargs.get('obj', dict())
@@ -49,6 +52,18 @@ class SubstitutionCollection(object):
         self.exc = kwargs.get('exc', dict())
         self.const = kwargs.get('const', dict())
 
+        for obj in args:
+            if ismodule(obj):
+                self.extract_module(obj)
+            elif isclass(obj):
+                self.extract_class(obj)
+            else:
+                raise TypeError(
+                    "object of type %s can't be handled." % type(obj))
+        self.match(match_pattern)
+        self.exclude(exclude_pattern)
+        self.shorten_keys(short)
+
     def __getitem__(self, item):
         return getattr(self, item)
 
@@ -57,7 +72,7 @@ class SubstitutionCollection(object):
 
     def keys(self):
         return (a for a, v in self.__dict__.items()
-                if not a.startswith('_') and not callable(v))
+            if not a.startswith('_') and not callable(v))
 
     def values(self):
         return (getattr(self, name) for name in self.keys())
@@ -87,16 +102,18 @@ class SubstitutionCollection(object):
         return self.filter(lambda k, v: match(pattern, v) is not None) \
             if pattern else self
 
-    def shorten_keys(self):
+    def shorten_keys(self, doit=True):
+        if not doit:
+            return self
         short = dict()
         for name in self.names:
             dic = dict()
-            for (*keys,), value in getattr(self, name).items():
+            for (*keys,), value in self[name].items():
                 if keys[-1] in dic:
-                    return SubstitutionCollection()
+                    return self
                 dic[(keys[-1],)] = value
-            short[name] = dic
-        return SubstitutionCollection(**short)
+            self[name] = dic
+        return self
 
     @staticmethod
     def _issub(sub, mod):
@@ -189,15 +206,24 @@ class SubstitutionCollection(object):
                          cls.__qualname__ + '().' + name)] = m_c_a_name
         return self
 
+    def replace(self, source='', names=()):
+        names = names if names else self.names
+        new_source = str(source)
+        for name in names:
+            for key, value in self[name].items():
+                ref = '|' + '.'.join(key) + '|'
+                rep = '%s`%s`' % (self.role(name), value)
+                new_source = new_source.replace(ref, rep)
+        return new_source
+
     def substitutions(self, names=()):
         names = names if names else self.names
         lines = list()
         for name in names:
             for key, value in self[name].items():
-                ref = key if value is None else value
                 line = ".. |%s|" % '.'.join(key)
                 line = line.ljust(50)
-                line += "replace:: :%s:`<%s>`" % (self.role(name), ref)
+                line += "replace:: %s`%s`" % (self.role(name), value)
                 lines.append(line)
         return lines
 
@@ -207,33 +233,7 @@ class SubstitutionCollection(object):
         return ':py:%s:' % str(role_name)
 
     def __str__(self):
-        return """   %s""" % (linesep + "   ").join(self.substitutions())
+        return linesep.join(self.substitutions())
 
     def __len__(self):
         return sum(len(v) for v in self.values())
-
-
-def rst_epilog(*objs, match_pattern='', exclude_pattern='', short=False):
-    coll = SubstitutionCollection()
-    for obj in objs:
-        if ismodule(obj):
-            coll.extract_module(obj)
-        elif isclass(obj):
-            coll.extract_class(obj)
-        else:
-            raise TypeError(
-                "object of type %s can't be handled." % type(obj))
-    coll.match(match_pattern)
-    coll.exclude(exclude_pattern)
-    if short:
-        coll = coll.shorten_keys()
-    return str(coll)
-
-
-if __name__ == '__main__':
-    import datetime, os, sys, businessdate, dcf
-
-    print(tuple(SubstitutionCollection().names))
-    # s = SubstitutionCollection().extract_module(dcf).shorten_keys()
-    # print(len(s))
-    print(rst_epilog(businessdate, match_pattern='', short=True))
