@@ -22,7 +22,6 @@ ROLES = {'mod': ':py:mod:',
          'exc': ':py:exc:',
          'const': ':py:const:'}
 
-TOKEN = '|'
 
 # add substitutions as
 # subs.type[mod.cls.attr()] = <mod.cls.attr>
@@ -71,8 +70,8 @@ class SubstitutionCollection(object):
         return setattr(self, item, value)
 
     def keys(self):
-        return (a for a, v in self.__dict__.items()
-            if not a.startswith('_') and not callable(v))
+        return (a for a, v in self.__dict__.items() if
+                not a.startswith('_') and not callable(v))
 
     def values(self):
         return (getattr(self, name) for name in self.keys())
@@ -105,7 +104,6 @@ class SubstitutionCollection(object):
     def shorten_keys(self, doit=True):
         if not doit:
             return self
-        short = dict()
         for name in self.names:
             dic = dict()
             for (*keys,), value in self[name].items():

@@ -5,11 +5,12 @@ import logging
 
 from os import linesep
 
-from .scan_and_build import SubstitutionCollection
+from .substitution_collection import SubstitutionCollection
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
-__doc__ = 'auto substitution for python type like modules, classes and functions (created by auxilium)'
+__doc__ = 'auto substitution for python type like ' \
+          'modules, classes and functions (created by auxilium)'
 __license__ = 'Apache License 2.0'
 
 __author__ = 'sonntagsgesicht'
