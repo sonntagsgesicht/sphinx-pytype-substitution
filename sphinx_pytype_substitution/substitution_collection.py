@@ -6,7 +6,7 @@
 # (created by auxilium)
 #
 # Author:   sonntagsgesicht
-# Version:  0.1, copyright Monday, 04 October 2021
+# Version:  0.1, copyright Sunday, 10 October 2021
 # Website:  https://github.com/sonntagsgesicht/sphinx-pytype-substitution
 # License:  Apache License 2.0 (see LICENSE file)
 
@@ -42,7 +42,8 @@ class SubstitutionCollection(object):
         return tuple(self.role(n) for n in self.names)
 
     def __init__(self, *args,
-                 match_pattern='', exclude_pattern='', short=False, **kwargs):
+                 match_pattern='', exclude_pattern='',
+                 short=False, **kwargs):
 
         self.mod = kwargs.get('mod', dict())
         self.cls = kwargs.get('cls', dict())

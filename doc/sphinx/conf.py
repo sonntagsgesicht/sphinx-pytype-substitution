@@ -12,23 +12,22 @@
 
 import os
 import sys
-import auxilium
 
 
 sys.path.append('../..')
 
 if os.getcwd().find('readthedocs') < 0:
-    pkg = __import__(os.getcwd().split(os.sep)[-3])
+    pkg = __import__(os.getcwd().split(os.sep)[-3].replace('-', '_'))
 else:
-    pkg = __import__(__file__.split(os.sep)[-6])
+    pkg = __import__(__file__.split(os.sep)[-6].replace('-', '_'))
 
 
 # -- add math-dollar/mathjax config ---------------------------------------
 
 mathjax_config = {
     'tex2jax': {
-        'inlineMath': [ ["\\(","\\)"] ],
-        'displayMath': [["\\[","\\]"] ],
+        'inlineMath': [ ["\\(","\\)"] ],  # noqa
+        'displayMath': [["\\[","\\]"] ],  # noqa
     },
 }
 # -- General configuration ------------------------------------------------
@@ -84,7 +83,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = pkg.__name__.capitalize()
-copyright = pkg.__author__
+copyright = pkg.__author__  # noqa
 author = pkg.__email__
 
 # The version info for the project you're documenting, acts as replacement for
@@ -116,7 +115,8 @@ pygments_style = 'sphinx'
 # If true, `to_do` and `to_do_List` produce output, else they produce nothing.
 todo_include_todos = False
 
-# A boolean that decides whether module names are prepended to all object names.
+# A boolean that decides whether module names are prepended
+# to all object names.
 add_module_names = True
 
 # -- Options for HTML output ----------------------------------------------
