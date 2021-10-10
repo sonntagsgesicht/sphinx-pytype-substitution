@@ -1,5 +1,15 @@
 # -*- coding: utf-8 -*-
 
+# sphinx_pytype_substitution
+# --------------------------
+# auto substitution for python type like modules, classes and functions
+# (created by auxilium)
+#
+# Author:   sonntagsgesicht
+# Version:  0.1, copyright Monday, 04 October 2021
+# Website:  https://github.com/sonntagsgesicht/sphinx-pytype-substitution
+# License:  Apache License 2.0 (see LICENSE file)
+
 
 import logging
 
@@ -17,7 +27,7 @@ __author__ = 'sonntagsgesicht'
 __email__ = 'sonntagsgesicht@icloud.com'
 __url__ = 'https://github.com/sonntagsgesicht/sphinx-pytype-substitution'
 
-__date__ = 'Monday, 04 October 2021'
+__date__ = 'Sunday, 10 October 2021'
 __version__ = '0.1'
 __dev_status__ = '3 - Alpha'  # '4 - Beta'  or '5 - Production/Stable'
 
