@@ -8,8 +8,8 @@ Python Project *sphinx-pytype-substitution*
 |py_version|_ |pypi_downloads|_
 
 
-.. |codeship| image:: https://img.shields.io/codeship/452427452427/master.svg
-.. _codeship: https://codeship.com//projects/452427452427
+.. |codeship| image:: https://img.shields.io/codeship/452428/master.svg
+.. _codeship: https://codeship.com//projects/452428
 
 .. |readthedocs| image:: https://img.shields.io/readthedocs/sphinx-pytype-substitution
 .. _readthedocs: https://sphinx-pytype-substitution.readthedocs.io/en/latest/intro.html
