@@ -36,13 +36,27 @@ Python Project *sphinx-pytype-substitution*
 Introduction
 ------------
 
-To import the project simply type
+:code:`sphinx-pytype-substitution` generates
+`restructuredtext substitutions <https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#substitution-references>`_
+for
+`python cross references <https://www.sphinx-doc.org/en/master/usage/restructuredtext/domains.html#python-roles>`_.
 
-.. code-block:: python
+Once added to the
+`extensions list <https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-extensions>`_
+of the
+`Sphinx <https://www.sphinx-doc.org>`_
+`configuration <https://www.sphinx-doc.org/en/master/usage/configuration.html#module-conf>`_
+file :code:`conf.py`
+it adds short and handy substitutions for
+`modules <https://docs.python.org/3/tutorial/modules.html#modules>`_
+and
+`classes <https://docs.python.org/3/reference/compound_stmts.html#class-definitions>`_.
 
-    >>> import sphinx_pytype_substitution
-
-after installation.
+So, on one side it becomes easy to add cross references to some
+api documentation in the project. And on the other side these references
+are still easy readable, even if the text is displayed directly
+(as it happens on `GitHub.com <https://github.com/sonntagsgesicht/sphinx_pytype_substitution>`_
+or on `PyPi.org <https://pypi.org/project/sphinx-pytype-substitution/>`_).
 
 
 Install
@@ -54,6 +68,59 @@ The latest stable version can always be installed or updated via pip:
 
     $ pip install sphinx-pytype-substitution
 
+
+Usage
+-----
+
+Once available add the extension to then extensions list in :code:`config.py`
+
+.. code-block:: python
+
+    # Add any Sphinx extension module names here, as strings. They can be
+    # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+    # ones.
+    extensions = [
+        'sphinx_pytype_substitution',
+        'sphinx_rtd_theme',
+        'sphinx.ext.autodoc',
+        'sphinx.ext.autosummary',
+        'sphinx.ext.doctest',
+        'sphinx.ext.mathjax',
+        'sphinx.ext.viewcode',
+        'sphinx.ext.napoleon'
+    ]
+
+And add the modules or classes to reference to as
+
+.. code-block:: python
+
+    # -- Config for pytype_substitution extension ------------------------------
+
+    pytype_substitutions = pkg,  # package, module or class to reference to
+
+
+ Additional options let select specific references
+
+.. code-block:: python
+
+    pytype_match_pattern = ''  # regex to filter entities to ref to
+    pytype_exclude_pattern = ''  # regex to exclude entities to ref to
+
+and decide if the substitution should have *short* or *full* format, i.e.
+
+.. code-block:: python
+
+    pytype_short_ref = True  # drop module from reference (if it does not conflict)
+
+for :code:`|date()|` rather than :code:`|datetime.date()|`.
+Note, sometimes the defining module matters as for :code:`|open()|` vs
+:code:`|gzip.open()|`.
+
+During initialisation process of Sphinx the list of substitutions is generated
+and added to
+`rst_epilog <https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-rst_epilog>`_.
+
+So the substitutions are available for every page.
 
 License
 -------

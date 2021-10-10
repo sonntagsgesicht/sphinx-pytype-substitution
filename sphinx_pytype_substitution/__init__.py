@@ -2,7 +2,7 @@
 
 # sphinx_pytype_substitution
 # --------------------------
-# auto substitution for python type like modules, classes and functions
+# auto substitution for python types like modules, classes and functions
 # (created by auxilium)
 #
 # Author:   sonntagsgesicht
@@ -19,7 +19,7 @@ from .substitution_collection import SubstitutionCollection
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
-__doc__ = 'auto substitution for python type like ' \
+__doc__ = 'auto substitution for python types like ' \
           'modules, classes and functions (created by auxilium)'
 __license__ = 'Apache License 2.0'
 
