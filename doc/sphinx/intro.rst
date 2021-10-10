@@ -1,3 +1,4 @@
+.. image:: logo.png
 
 ------------
 Introduction

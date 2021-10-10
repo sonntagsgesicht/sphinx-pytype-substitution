@@ -1,7 +1,6 @@
 
-
 Python Project *sphinx-pytype-substitution*
------------------------------------------------------------------------
+-------------------------------------------
 
 
 Introduction
@@ -11,7 +10,7 @@ To import the project simply type
 
 .. code-block:: python
 
-    >>> import sphinx-pytype-substitution
+    >>> import sphinx_pytype_substitution
 
 after installation.
 

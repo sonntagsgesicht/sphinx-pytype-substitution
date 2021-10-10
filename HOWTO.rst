@@ -2,7 +2,7 @@
 
 .. doctest::
 
-    >>> import sphinx-pytype-substitution
+    >>> import sphinx_pytype_substitution
 
 
 Write your tutorial here...

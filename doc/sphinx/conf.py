@@ -22,9 +22,6 @@ if os.getcwd().find('readthedocs') < 0:
 else:
     pkg = __import__(__file__.split(os.sep)[-6])
 
-# -- add auxilium replacement strings -------------------------------------
-
-rst_prolog = auxilium.rst_tools.rst_replace(pkg)
 
 # -- add math-dollar/mathjax config ---------------------------------------
 
@@ -124,8 +121,6 @@ add_module_names = True
 
 # -- Options for HTML output ----------------------------------------------
 
-html_theme = 'sphinx_rtd_theme'
-html_theme = 'pyramid'
 html_theme = 'karma_sphinx_theme'
 # html_logo = 'logo.png'
 # html_theme_options = {}
