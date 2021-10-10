@@ -6,7 +6,7 @@
 # (created by auxilium)
 #
 # Author:   sonntagsgesicht
-# Version:  0.1, copyright Monday, 04 October 2021
+# Version:  0.1, copyright Sunday, 10 October 2021
 # Website:  https://github.com/sonntagsgesicht/sphinx-pytype-substitution
 # License:  Apache License 2.0 (see LICENSE file)
 
