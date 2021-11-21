@@ -2,8 +2,6 @@
 Python Project *sphinx-pytype-substitution*
 -------------------------------------------
 
-|readthedocs|
-
 |codeship|_ |readthedocs|_ |license|_ |github_version|_ |pip_version|_
 |py_version|_ |pypi_downloads|_
 
@@ -99,7 +97,7 @@ And add the modules or classes to reference to as
     pytype_substitutions = pkg,  # package, module or class to reference to
 
 
- Additional options let select specific references
+Additional options let select specific references
 
 .. code-block:: python
 

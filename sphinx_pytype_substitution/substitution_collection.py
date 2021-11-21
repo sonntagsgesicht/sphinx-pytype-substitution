@@ -2,7 +2,7 @@
 
 # sphinx_pytype_substitution
 # --------------------------
-# auto substitution for python type like modules, classes and functions
+# auto substitution for python types like modules, classes and functions
 # (created by auxilium)
 #
 # Author:   sonntagsgesicht
@@ -222,9 +222,9 @@ class SubstitutionCollection(object):
         lines = list()
         for name in names:
             for key, value in self[name].items():
-                line = ".. |%s|" % '.'.join(key)
+                line = ".. |%s| " % '.'.join(key)
                 line = line.ljust(50)
-                line += "replace:: %s`%s`" % (self.role(name), value)
+                line += " replace:: %s`%s`" % (self.role(name), value)
                 lines.append(line)
         return lines
 

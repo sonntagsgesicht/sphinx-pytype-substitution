@@ -26,6 +26,7 @@ except ImportError:
     #import test.unicorn as unicorn
     print('')
 
+
 class SubstitutionCollectionTests(RegressionTestCase):
 
     def test_extract_module(self):

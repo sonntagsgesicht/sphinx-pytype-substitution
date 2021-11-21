@@ -6,18 +6,14 @@
 # (created by auxilium)
 #
 # Author:   sonntagsgesicht
-# Version:  0.1, copyright Sunday, 10 October 2021
+# Version:  0.1.1, copyright Sunday, 21 November 2021
 # Website:  https://github.com/sonntagsgesicht/sphinx-pytype-substitution
 # License:  Apache License 2.0 (see LICENSE file)
 
 
-import logging
-
 from os import linesep
 
 from .substitution_collection import SubstitutionCollection
-
-logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 __doc__ = 'auto substitution for python types like ' \
           'modules, classes and functions (created by auxilium)'
@@ -27,8 +23,8 @@ __author__ = 'sonntagsgesicht'
 __email__ = 'sonntagsgesicht@icloud.com'
 __url__ = 'https://github.com/sonntagsgesicht/sphinx-pytype-substitution'
 
-__date__ = 'Sunday, 10 October 2021'
-__version__ = '0.1'
+__date__ = 'Sunday, 21 November 2021'
+__version__ = '0.1.1'
 __dev_status__ = '3 - Alpha'  # '4 - Beta'  or '5 - Production/Stable'
 
 __dependencies__ = ()
