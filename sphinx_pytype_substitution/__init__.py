@@ -6,7 +6,7 @@
 # (created by auxilium)
 #
 # Author:   sonntagsgesicht
-# Version:  0.1.1, copyright Saturday, 18 December 2021
+# Version:  0.1.2, copyright Saturday, 18 December 2021
 # Website:  https://github.com/sonntagsgesicht/sphinx-pytype-substitution
 # License:  Apache License 2.0 (see LICENSE file)
 
@@ -24,7 +24,7 @@ __email__ = 'sonntagsgesicht@icloud.com'
 __url__ = 'https://github.com/sonntagsgesicht/sphinx-pytype-substitution'
 
 __date__ = 'Saturday, 18 December 2021'
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 __dev_status__ = '3 - Alpha'  # '4 - Beta'  or '5 - Production/Stable'
 
 __dependencies__ = ()
