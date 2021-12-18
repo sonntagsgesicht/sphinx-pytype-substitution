@@ -6,7 +6,7 @@
 # (created by auxilium)
 #
 # Author:   sonntagsgesicht
-# Version:  0.1.1, copyright Sunday, 21 November 2021
+# Version:  0.1.1, copyright Saturday, 18 December 2021
 # Website:  https://github.com/sonntagsgesicht/sphinx-pytype-substitution
 # License:  Apache License 2.0 (see LICENSE file)
 
@@ -23,7 +23,7 @@ __author__ = 'sonntagsgesicht'
 __email__ = 'sonntagsgesicht@icloud.com'
 __url__ = 'https://github.com/sonntagsgesicht/sphinx-pytype-substitution'
 
-__date__ = 'Sunday, 21 November 2021'
+__date__ = 'Saturday, 18 December 2021'
 __version__ = '0.1.1'
 __dev_status__ = '3 - Alpha'  # '4 - Beta'  or '5 - Production/Stable'
 
@@ -41,6 +41,8 @@ def config_inited(app, config):
         short=config.pytype_short_ref)
     if config.rst_epilog is None:
         config.rst_epilog = ''
+    if config.pytype_show:
+        print(str(coll))
     config.rst_epilog += linesep + str(coll)
 
 
@@ -53,5 +55,6 @@ def setup(app):
     app.add_config_value('pytype_short_ref', False, False, (bool,))
     app.add_config_value('pytype_match_pattern', '', False, (str,))
     app.add_config_value('pytype_exclude_pattern', '', False, (str,))
+    app.add_config_value('pytype_show', '', False, (bool,))
 
     return {'parallel_read_safe': True, 'parallel_write_safe': True}

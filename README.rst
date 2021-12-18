@@ -120,6 +120,14 @@ and added to
 
 So the substitutions are available for every page.
 
+
+To see which substitutions are added add
+
+.. code-block:: python
+
+    pytype_show = True  # print out all pytype_substitutions
+
+
 License
 -------
 
